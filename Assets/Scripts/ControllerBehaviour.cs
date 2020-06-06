@@ -11,10 +11,11 @@ public class ControllerBehaviour : MonoBehaviour
     private Rigidbody2D myRB; // Référence à un rigidbody (le nôtre)
     private Vector2 stickDirection;
     private Animator myAnimator; // Référence à un animator (le nôtre)
+    private SpriteRenderer mySpriteRenderer; // Référence à un sprite renderer (le nôtre)
 
     private bool isOnGround = false; // Permet de vérifier si on a le droit de sauter
-    // Start is called before the first frame update
-
+    private bool isFacingLeft = true; // Permet de connaitre la direction dans laquelle le joueur regarde
+    
     private void OnEnable()
     {
         //On setup les contrôles avec leurs callbacks respectives
@@ -64,6 +65,7 @@ public class ControllerBehaviour : MonoBehaviour
         // On récupère les références à nos composants
         myRB = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -105,7 +107,16 @@ public class ControllerBehaviour : MonoBehaviour
     /// </summary>
     private void Flip()
     {
-        
+        if (stickDirection.x < -0.1f)
+        {
+            isFacingLeft = true;
+        }
+
+        if (stickDirection.x > 0.1f)
+        {
+            isFacingLeft = false;
+        }
+        mySpriteRenderer.flipX = isFacingLeft;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
