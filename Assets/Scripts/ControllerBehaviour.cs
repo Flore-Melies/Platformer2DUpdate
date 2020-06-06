@@ -96,6 +96,16 @@ public class ControllerBehaviour : MonoBehaviour
         myAnimator.SetBool("IsAscending", isAscending);
         var isDescending = !isOnGround && myRB.velocity.y < 0;
         myAnimator.SetBool("IsDescending", isDescending);
+        myAnimator.SetBool("IsGrounded", isOnGround);
+        Flip();
+    }
+    
+    /// <summary>
+    /// Permet de faire flip le sprite afin que le joueur regarde dans la bonne direction
+    /// </summary>
+    private void Flip()
+    {
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
